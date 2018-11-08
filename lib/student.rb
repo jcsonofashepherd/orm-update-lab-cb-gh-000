@@ -32,7 +32,7 @@ class Student
       self.update
     else
     sql = <<-SQL
-    INSERT INTO students (name, grade) 
+    INSERT INTO students (name, grade)
     VALUES (?, ?)
     SQL
     DB[:conn].execute(sql, self.name, self.grade)
@@ -43,13 +43,16 @@ class Student
     self.new(name, grade)
   end
 
-  def new_from_db
+  def new_from_db(arr)
+    self.new(arr[1], arr[2], arr[0])
   end
 
   def find_by_name
   end
 
   def update
+    sql = "UPDATE students SET name = ?, grade = ? WHERE id = ?"
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
   end
 
 end
